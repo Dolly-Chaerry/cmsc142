@@ -7,6 +7,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 from uuid import UUID, uuid4
 
+import json
+
 import numpy as np
 import random
 
