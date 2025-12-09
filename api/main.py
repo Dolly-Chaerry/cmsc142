@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Optional
 from uuid import UUID, uuid4
+from fastapi.middleware.cors import CORSMiddleware
 
 import json
 
@@ -55,6 +56,8 @@ maps = {
     2: map2,
     3: map3
 }
+
+origin = "http://localhost:5173"
 
 ################################
 
@@ -203,6 +206,15 @@ combined = [
     }
     for i in range(len(moveBit))
 ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origin,     # or ["*"] during dev
+    allow_credentials=True,
+    allow_methods=["*"],       # allow GET, POST, OPTIONS, etc.
+    allow_headers=["*"],
+)
+
 
 @app.get("/easy_map/")
 async def get_easy_map():
